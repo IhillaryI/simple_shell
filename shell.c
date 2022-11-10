@@ -10,7 +10,7 @@ int main(void)
 {
 	char *lineptr;
 	size_t n;
-	size_t n_read;
+	int n_read;
 	unsigned int tc;
 	char **buf;
 	size_t buf_size;
