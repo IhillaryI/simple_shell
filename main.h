@@ -1,5 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,4 +25,5 @@ enum token_stat
 };
 
 void fill_buf(char **, char *);
+int com_exists(char *s);
 #endif

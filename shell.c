@@ -1,39 +1,71 @@
 #include "main.h"
+#define voided(x) ((void) (x))
 
 unsigned int token_count(char *s);
 
 /**
 * main - a simple shell program
+* @ac: integer argument
+* @argv: array of strings
+*
+* Description: This program really doesn't need the arguments to main.
+* it only requires the argv[0] string in order to get the name of the file
+*
 * Return: 0 (Success)
 */
-int main(void)
+int main(int ac, char *argv[])
 {
 	char *lineptr;
 	size_t n;
-	int n_read;
+	int n_read, status;
 	unsigned int tc;
 	char **buf;
 	size_t buf_size;
+	pid_t child;
+	unsigned int command_count;
 
+	voided(ac);
 	lineptr = NULL;
 	n = 0;
+	command_count = 0;
 
 	do {
-		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "($) ", 4);
-
 		if (lineptr != NULL)
 		{
+			++command_count;
 			tc = token_count(lineptr);
 			buf_size = tc + 1;
 			buf = malloc(sizeof(char *) * buf_size);
 
 			fill_buf(buf, lineptr);
 
-			free(lineptr);
-			free(buf);
+			if (!com_exists(buf[0]))
+			{
+				printf("%s: %u: %s: not found\n($) ", argv[0], command_count, buf[0]);
+				continue;
+			}
+
+			child = fork();
+			if (child == -1)
+				continue;
+			if (child == 0)
+			{
+				execve(buf[0], buf, environ);
+				sleep(2);
+			}
+			else
+			{
+				wait(&status);
+				free(buf);
+			}
 		}
+
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "($) ", 4);
+
+
 	} while ((n_read = getline(&lineptr, &n, stdin)) != -1 && (n_read != EOF));
+	free(lineptr);
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "\n", 1);
 	return (0);
