@@ -23,6 +23,7 @@ int main(int ac, char *argv[])
 	size_t buf_size;
 	pid_t child;
 	unsigned int command_count;
+	int command_stat;
 
 	voided(ac);
 	lineptr = NULL;
@@ -39,12 +40,20 @@ int main(int ac, char *argv[])
 
 			fill_buf(buf, lineptr);
 
-			if (!com_exists(buf[0]))
+			if (buf[0] == NULL)
 			{
-				printf("%s: %u: %s: not found\n($) ", argv[0], command_count, buf[0]);
+				printf("%s ", "($)");
 				continue;
 			}
 
+			command_stat = com_exists(buf);
+			if (command_stat == 0)
+			{
+				printf("%s: %u: %s: not found\n", argv[0], command_count, buf[0]);
+				if (isatty(STDIN_FILENO))
+					printf("%s ", "($)");
+				continue;
+			}
 			child = fork();
 			if (child == -1)
 				continue;
@@ -56,6 +65,8 @@ int main(int ac, char *argv[])
 			else
 			{
 				wait(&status);
+				if (command_stat == 2)
+					free(buf[0]);
 				free(buf);
 			}
 		}

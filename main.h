@@ -15,7 +15,7 @@ extern char **environ;
 * @IN: first member
 * @OUT: second member
 *
-* Description: used to check if we are currently in a token 
+* Description: used to check if we are currently in a token
 * or on a whitespace character
 */
 enum token_stat
@@ -25,5 +25,7 @@ enum token_stat
 };
 
 void fill_buf(char **, char *);
-int com_exists(char *s);
+int com_exists(char **buf);
+unsigned int len(char *);
+char *get_path(void);
 #endif
