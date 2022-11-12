@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * execbuilt - execute built-in 
+ * execbuilt - execute built-in
  * @args: the array of args
  *
  * Return: return value for the built infunction pointer or 1 if it failed

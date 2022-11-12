@@ -45,7 +45,8 @@ int main(int ac, char *argv[])
 				printf("%s ", "($)");
 				continue;
 			}
-			if((builtin_status = execbuilt(buf)) == -1)
+			builtin_status = execbuilt(buf);
+			if (builtin_status == -1)
 				return (-1);
 			command_stat = com_exists(buf);
 			if (command_stat == 0)
