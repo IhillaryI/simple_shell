@@ -24,8 +24,22 @@ enum token_stat
 	OUT
 };
 
+/**
+ * struct builtin - struct builtin
+ * @name: name of the builtin
+ * @func: function pointer to the respective function
+ */
+typedef struct builtin
+{
+	char *name;
+	int (*func)(void);
+} builtin_t;
+
 void fill_buf(char **, char *);
 int com_exists(char **buf);
+int _exit_(void);
 unsigned int len(char *);
 char *get_path(void);
+int _strcmp(char *, char *);
+int execbuilt(char **);
 #endif
