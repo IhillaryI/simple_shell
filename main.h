@@ -43,4 +43,6 @@ char *get_path(void);
 void handle_err(char *pn, char *cn, unsigned int cc);
 int _strcmp(char *, char *);
 int execbuilt(char **);
+char *c2s(unsigned int);
+char *err_str(char *, char *, char *);
 #endif

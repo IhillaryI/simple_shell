@@ -46,13 +46,18 @@ int main(int ac, char *argv[])
 			}
 			builtin_status = execbuilt(buf);
 			if (builtin_status == -1)
-				return (-1);
+			{
+				free(buf);
+				free(lineptr);
+				return (0);
+			}
 			command_stat = com_exists(buf);
 			if (command_stat == 0)
 			{
-				printf("%s: %u: %s: not found\n", argv[0], command_count, buf[0]);
+				handle_err(argv[0], buf[0], command_count);
 				if (isatty(STDIN_FILENO))
 					write(STDOUT_FILENO, "($) ", 4);
+				free(buf);
 				continue;
 			}
 			child = fork();
