@@ -17,7 +17,7 @@ int main(int ac, char *argv[])
 {
 	char *lineptr;
 	size_t n;
-	int n_read, status;
+	int n_read, status, builtin_status;
 	unsigned int tc;
 	char **buf;
 	size_t buf_size;
@@ -44,7 +44,9 @@ int main(int ac, char *argv[])
 				printf("%s ", "($)");
 				continue;
 			}
-
+			builtin_status = execbuilt(buf);
+			if (builtin_status == -1)
+				return (-1);
 			command_stat = com_exists(buf);
 			if (command_stat == 0)
 			{
