@@ -29,7 +29,6 @@ int main(int ac, char *argv[])
 	lineptr = NULL;
 	n = 0;
 	command_count = 0;
-
 	do {
 		if (lineptr != NULL)
 		{
@@ -51,7 +50,7 @@ int main(int ac, char *argv[])
 			{
 				printf("%s: %u: %s: not found\n", argv[0], command_count, buf[0]);
 				if (isatty(STDIN_FILENO))
-					printf("%s ", "($)");
+					write(STDOUT_FILENO, "($) ", 4);
 				continue;
 			}
 			child = fork();
@@ -70,10 +69,8 @@ int main(int ac, char *argv[])
 				free(buf);
 			}
 		}
-
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "($) ", 4);
-
 
 	} while ((n_read = getline(&lineptr, &n, stdin)) != -1 && (n_read != EOF));
 	free(lineptr);

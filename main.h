@@ -28,4 +28,5 @@ void fill_buf(char **, char *);
 int com_exists(char **buf);
 unsigned int len(char *);
 char *get_path(void);
+void handle_err(char *pn, char *cn, unsigned int cc);
 #endif
