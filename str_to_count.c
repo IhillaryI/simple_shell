@@ -16,9 +16,9 @@ int s2c(char *s)
 	i = 0;
 	while (*(s + i) == ' ' || *(s + i) == '\t' || *(s + i) == '\n')
 		i++;
-	while ((*s + i) && (*(s + i) >= '0' && *(s + i) <= '9'))
+	while ((*s + i) && ((*(s + i) >= '0') && (*(s + i) <= '9')))
 	{
-		num = (num * 10) + ('0' + *(s + i));
+		num = (num * 10) + (*(s + i) - '0');
 		++i;
 	}
 	return (num);

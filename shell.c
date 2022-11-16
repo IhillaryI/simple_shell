@@ -23,7 +23,7 @@ int main(int ac, char *argv[])
 	size_t buf_size;
 	pid_t child;
 	unsigned int command_count;
-	int command_stat;
+	int command_stat, ext_stat;
 
 	voided(ac);
 	lineptr = NULL;
@@ -48,9 +48,10 @@ int main(int ac, char *argv[])
 			builtin_status = execbuilt(buf);
 			if (builtin_status == -1)
 			{
+				ext_stat = s2c(buf[1]);
 				free(buf);
 				free(lineptr);
-				return (0);
+				exit(ext_stat);
 			}
 			command_stat = com_exists(buf);
 			if (command_stat == 0)
