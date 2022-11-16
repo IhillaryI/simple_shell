@@ -10,9 +10,9 @@ int s2c(char *s)
 {
 	int num, i;
 
-	if (s == NULL)
-		return (0);
 	num = 0;
+	if (s == NULL)
+		return (num);
 	i = 0;
 	while (*(s + i) == ' ' || *(s + i) == '\t' || *(s + i) == '\n')
 		i++;

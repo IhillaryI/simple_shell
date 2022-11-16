@@ -3,7 +3,7 @@
 /**
 * c2s - conversts a given number to a string.
 * @count: number to convert
-* Return a pointer to a string which can be freed with free()
+* Return: a pointer to a string which can be freed with free()
 */
 char *c2s(unsigned int count)
 {
