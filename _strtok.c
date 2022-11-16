@@ -23,9 +23,11 @@ char *_strtok(char *s, const char *delim)
 		i = 0;
 		if (*(cpy + i) == '\0')
 			return (NULL);
-		while (*(cpy + i) == ' ' || *(cpy + i) == '\t' || *(cpy + i) == '\n')
+		while (*(cpy + i) == ' ')
 			++i;
 		token = cpy + i;
+		if (*token == '\0')
+			return (NULL);
 		while (*(cpy + i) != ' ' && *(cpy + i) != '\0')
 			++i;
 		if (*(cpy + i) == '\0')
