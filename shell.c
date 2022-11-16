@@ -42,6 +42,7 @@ int main(int ac, char *argv[])
 			if (buf[0] == NULL)
 			{
 				printf("%s ", "($)");
+				free(buf);
 				continue;
 			}
 			builtin_status = execbuilt(buf);
