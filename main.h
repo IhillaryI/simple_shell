@@ -45,4 +45,6 @@ int _strcmp(char *, char *);
 int execbuilt(char **);
 char *c2s(unsigned int);
 char *err_str(char *, char *, char *);
+int s2c(char *s);
+char *_strtok(char *s, const char *delim);
 #endif
