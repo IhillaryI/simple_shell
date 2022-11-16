@@ -11,11 +11,11 @@ void fill_buf(char **buf, char *s)
 	unsigned int i;
 
 	i = 0;
-	token = _strtok(s, "\t \n");
+	token = strtok(s, "\t \n");
 	while (token != NULL)
 	{
 		buf[i] = token;
-		token = _strtok(NULL, "\t \n");
+		token = strtok(NULL, "\t \n");
 		++i;
 	}
 	buf[i] = NULL;
