@@ -12,11 +12,11 @@ void _extstat(char **buf, char *pn, char *lineptr, int status)
 	char *err;
 	int extstat;
 
-	if (buf[1] == NULL && status == -1)
+	if (buf[1] == NULL)
 	{
 		free(buf);
 		free(lineptr);
-		exit(0);
+		exit(status);
 	}
 	if (buf[1][0] >= '0' && buf[1][0] <= '9')
 	{
@@ -30,6 +30,12 @@ void _extstat(char **buf, char *pn, char *lineptr, int status)
 		free(buf);
 		free(lineptr);
 		exit(WEXITSTATUS(status));
+	}
+	else if (status == 127)
+	{
+		free(buf);
+		free(lineptr);
+		exit(127);
 	}
 	else
 	{

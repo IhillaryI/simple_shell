@@ -29,6 +29,7 @@ int main(int ac, char *argv[])
 	lineptr = NULL;
 	n = 0;
 	command_count = 0;
+	status = 0;
 	do {
 		if (lineptr != NULL)
 		{
@@ -49,7 +50,6 @@ int main(int ac, char *argv[])
 			builtin_status = execbuilt(buf);
 			if (builtin_status == -1)
 			{
-				status = -1;
 				_extstat(buf, argv[0], lineptr, status);
 				if (isatty(STDIN_FILENO))
 					write(STDOUT_FILENO, "($) ", 4);
@@ -61,11 +61,11 @@ int main(int ac, char *argv[])
 				handle_err(argv[0], buf[0], command_count);
 				if (isatty(STDIN_FILENO))
 					write(STDOUT_FILENO, "($) ", 4);
-				else
-					status = 127;
+				status = 127;
 				free(buf);
 				continue;
 			}
+			status = 0;
 			child = fork();
 			if (child == -1)
 				continue;
