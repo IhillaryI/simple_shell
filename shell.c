@@ -41,7 +41,8 @@ int main(int ac, char *argv[])
 
 			if (buf[0] == NULL)
 			{
-				printf("%s ", "($)");
+				if (isatty(STDIN_FILENO))
+					write(STDOUT_FILENO, "($) ", 4);
 				free(buf);
 				continue;
 			}
