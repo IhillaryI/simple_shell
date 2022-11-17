@@ -44,7 +44,8 @@ void handle_err(char *pn, char *cn, unsigned int cc);
 int _strcmp(char *, char *);
 int execbuilt(char **);
 char *c2s(unsigned int);
-char *err_str(char *, char *, char *);
+char *err_str(char *, char *, char *, char *);
 int s2c(char *s);
 char *_strtok(char *s, const char *delim);
+void _extstat(char **, char *, char *, int);
 #endif

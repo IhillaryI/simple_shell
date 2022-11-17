@@ -8,13 +8,12 @@
 *
 * Return: pointer to a string which can be freed using free();
 */
-char *err_str(char *pn, char *cn, char *cc)
+char *err_str(char *pn, char *cn, char *cc, char *text)
 {
-	char *text, *err_str;
+	char *err_str;
 	unsigned int i, j;
 
 	i = 0;
-	text = "not found\n";
 	err_str = malloc(sizeof(char) *
 			(len(pn) + len(cn) + len(cc) + len(text) + 7));
 	while ((err_str[i] = pn[i]))
