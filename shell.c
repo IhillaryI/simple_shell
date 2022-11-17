@@ -61,6 +61,8 @@ int main(int ac, char *argv[])
 				handle_err(argv[0], buf[0], command_count);
 				if (isatty(STDIN_FILENO))
 					write(STDOUT_FILENO, "($) ", 4);
+				else
+					status = 127;
 				free(buf);
 				continue;
 			}
@@ -87,7 +89,7 @@ int main(int ac, char *argv[])
 	free(lineptr);
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "\n", 1);
-	return (0);
+	return (status);
 }
 
 
