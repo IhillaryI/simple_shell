@@ -5,6 +5,7 @@
 * @pn: program name
 * @cn: command name
 * @cc: command count
+* @text: text
 *
 * Return: pointer to a string which can be freed using free();
 */
