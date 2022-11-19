@@ -23,13 +23,13 @@ int main(int ac, char *argv[])
 	size_t buf_size;
 	pid_t child;
 	unsigned int command_count;
-	int command_stat;
+	int command_stat, exit_status;
 
 	voided(ac);
 	lineptr = NULL;
 	n = 0;
+	exit_status = 1;
 	command_count = 0;
-	status = 0;
 	do {
 		if (lineptr != NULL)
 		{
@@ -50,7 +50,7 @@ int main(int ac, char *argv[])
 			builtin_status = execbuilt(buf);
 			if (builtin_status == -1)
 			{
-				_extstat(buf, argv[0], lineptr, status);
+				_extstat(buf, argv[0], lineptr, status, exit_status);
 				if (isatty(STDIN_FILENO))
 					write(STDOUT_FILENO, "($) ", 4);
 				continue;
@@ -65,22 +65,18 @@ int main(int ac, char *argv[])
 				free(buf);
 				continue;
 			}
-			status = 0;
 			child = fork();
 			if (child == -1)
 				continue;
 			if (child == 0)
-			{
 				execve(buf[0], buf, environ);
-				sleep(2);
-			}
-			else
-			{
-				wait(&status);
-				if (command_stat == 2)
-					free(buf[0]);
-				free(buf);
-			}
+
+			wait(&status);
+			if (command_stat == 2)
+				free(buf[0]);
+			if (WIFEXITED(status))
+				exit_status = WEXITSTATUS(status);
+			free(buf);
 		}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "($) ", 4);
@@ -89,7 +85,7 @@ int main(int ac, char *argv[])
 	free(lineptr);
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "\n", 1);
-	return (status);
+	return (0);
 }
 
 

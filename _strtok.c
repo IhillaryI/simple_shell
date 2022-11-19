@@ -41,7 +41,8 @@ char *_strtok(char *s, const char *delim)
 		unify_delim(s, delim);
 		cpy = s;
 		i = 0;
-		while (*(cpy + i) && (*(cpy + i) == ' ' || *(cpy + i) == '\t' || *(cpy + i) == '\n'))
+		while (*(cpy + i) && (*(cpy + i) == ' '
+					|| *(cpy + i) == '\t' || *(cpy + i) == '\n'))
 			++i;
 		token = cpy + i;
 		if (*token == '\0')

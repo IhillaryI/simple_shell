@@ -47,5 +47,5 @@ char *c2s(unsigned int);
 char *err_str(char *, char *, char *, char *);
 int s2c(char *s);
 char *_strtok(char *s, const char *delim);
-void _extstat(char **, char *, char *, int);
+void _extstat(char **, char *, char *, int, int);
 #endif
